@@ -17,7 +17,7 @@
 
 namespace awrts {
 namespace scene {
-class Object;
+class Entity;
 
 //! A node in the scene graph
 class Node {
@@ -57,6 +57,12 @@ public:
 
 	//! Get node's scale
 	virtual Vector3d<f32> getScale();
+
+	//! Attach an Entity
+	virtual void attachEntity(Entity* entity);
+
+	//! Remove an Entity
+	virtual void detachEntity(Entity* entity);
 
 	//! Get pointer to hidden details.
 	impl::Node* getDetails()
