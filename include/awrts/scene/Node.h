@@ -54,7 +54,7 @@ public:
 
 	//! Get node's orientation
 	virtual Quaternion<f32> getOrientation();
-	//
+
 	//! Get node's scale
 	virtual Vector3d<f32> getScale();
 
