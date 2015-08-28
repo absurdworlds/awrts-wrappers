@@ -30,27 +30,21 @@ public:
 	
 	//! Remove child from node
 	virtual bool removeChild(Node* child);
-	
-	//! Attach node to parent
-	virtual bool setParent(Node* parent);
 
-	//! Detach node from parent
-	virtual bool removeParent();
-
-	//! Callback to be called on parent removal
+	//! Callback on parent removal
 	virtual void onParentRemove();
 
 	//! Set node's position via vector
 	virtual void setPosition(Vector3d<f32> pos);
 	
 	//! Set node's position via coordinates
-	virtual void setPosition(f32 const X, f32 const Y, f32 const Z);
+	virtual void setPosition(f32 const x, f32 const y, f32 const z);
 
 	//! Set node's orientation via euler angles
 	virtual void setOrientation(Vector3d<f32> euler);
 	
 	//! Set node's orientation via quaternion
-	virtual void setOrientation(Quaternion<f32> const& quat);
+	virtual void setOrientation(Quaternion<f32> const& orientation);
 
 	//! Set node's relative scale
 	virtual void setScale(Vector3d<f32> scale);
@@ -59,7 +53,10 @@ public:
 	virtual Vector3d<f32> getPosition();
 
 	//! Get node's orientation
-	virtual Vector3d<f32> getRotation();
+	virtual Quaternion<f32> getOrientation();
+	//
+	//! Get node's scale
+	virtual Vector3d<f32> getScale();
 
 	//! Get pointer to hidden details.
 	impl::Node* getDetails()
@@ -67,9 +64,9 @@ public:
 		return details.get();
 	}
 protected:
-	virtual void initDetails(impl::Node* newDetails)
+	virtual void initDetails(std::unique_ptr<impl::Node> newDetails)
 	{
-		details.reset(newDetails);
+		details = newDetails;
 	}
 private:
 	std::unique_ptr<impl::Node> details;
