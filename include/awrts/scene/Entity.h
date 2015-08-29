@@ -12,24 +12,23 @@
 namespace awrts {
 namespace scene {
 
-//! An entity can be attached to a node in scene graph
+//! Entity can be attached to a node in scene graph
 class Entity {
+/******************* Internal implementation details *******************/
 public:
-	//! Default constructor
-	Entity();
+	class Details;
 
-	//! Get pointer to hidden details.
-	impl::Entity* getDetails()
+	Details* getDetails()
 	{
 		return details.get();
 	}
 protected:
-	virtual void initDetails(std::unique_ptr<impl::Entity> newDetails)
+	Entity(Details* details)
+		: details(details)
 	{
-		details = newDetails;
 	}
 private:
-	std::unique_ptr<impl::Entity> details;
+	std::unique_ptr<Details*> details;
 };
 } // namespace scene
 } // namespace awrts

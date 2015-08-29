@@ -22,9 +22,6 @@ class Entity;
 //! A node in the scene graph
 class Node {
 public:
-	//! Default constructor
-	Node();
-	
 	//! Attach child to node
 	virtual bool addChild(Node* child);
 	
@@ -64,18 +61,19 @@ public:
 	//! Remove an Entity
 	virtual void detachEntity(Entity* entity);
 
-	//! Get pointer to hidden details.
-	impl::Node* getDetails()
-	{
-		return details.get();
-	}
+/******************* Internal implementation details *******************/
+public:
+	class Details;
+
+	Details* getDetails();
+
 protected:
-	virtual void initDetails(std::unique_ptr<impl::Node> newDetails)
+	Node(Details* details)
+		: details(details)
 	{
-		details = newDetails;
 	}
 private:
-	std::unique_ptr<impl::Node> details;
+	std::unique_ptr<Details> details;
 };
 } // namespace scene
 } // namespace awrts
